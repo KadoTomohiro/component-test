@@ -19,12 +19,15 @@ deploy:
     - script:
         name: build
         code: |
-          git remote add azure https://${GIT_USER}:${GIT_PASSWORD}@${GIT_URL}
           git checkout -b azure
           npm run build -- --prod
-          ls -a | grep -v -E 'dist|.git$' | xargs rm -r
+          ls -a | grep -v -E 'dist|.git$' | xargs rm -rf
           mv dist/* .
           rm -rf dist
+    -script:
+        name: set git
+        code: |
+          git remote add azure https://${GIT_USER}:${GIT_PASSWORD}@${GIT_URL}
           git add .
           git commit -m "azure push"
           git push azure azure:master
