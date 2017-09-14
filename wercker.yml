@@ -21,7 +21,7 @@ deploy:
         code: |
           git checkout -b azure
           npm run build -- --prod
-          ls -a | grep -v -E 'dist|.git$' | xargs rm -rf
+          ls -a | grep -v -E 'dist|.git$|..$|.$' | xargs rm -rf
           mv dist/* .
           rm -rf dist
     - script:
