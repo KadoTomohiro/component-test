@@ -24,6 +24,7 @@ deploy:
           ls -a | grep -v -E 'dist|.git$|\.\.$|\.$' | xargs rm -r
           mv dist/* .
           rm -rf dist
+          ls -a
     - script:
         name: set git
         code: |
