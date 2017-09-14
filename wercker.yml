@@ -10,7 +10,7 @@ build:
     - script:
         name: echo angular-cli information
         code: |
-          npm run ng:version
+          npm run ng -- version
 deploy:
   steps:
     - script:
