@@ -32,6 +32,6 @@ deploy:
           git config --global user.name "${USER_NANE}"
           git add .
           git commit -m "azure push"
-          git push azure azure:master
+          git push azure azure:master --force
           git checkout master
           git branch -D azure
