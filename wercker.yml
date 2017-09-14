@@ -1,0 +1,32 @@
+box: node
+build:
+  steps:
+    - npm-install
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+    - script:
+        name: echo angular-cli information
+        code: |
+          npm run ng:version
+deploy:
+  steps:
+    - script:
+      name: npm rebuild
+      code: npm rebuild
+    - script:
+        name: build
+        code: |
+          git remote add azure https://${GIT_USER}:${GIT_PASSWORD}@${GIT_URL}
+          git checkout -b azure
+          npm build -- --prod
+          ls -a | grep -v -E 'dist|.git$' | xargs rm -r
+          mv dist/* .
+          rm -rf dist
+          git add .
+          git commit -m "azure push"
+          git push azure azure:master
+          git checkout master
+          git branch -D azure
