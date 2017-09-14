@@ -21,7 +21,7 @@ deploy:
         code: |
           git remote add azure https://${GIT_USER}:${GIT_PASSWORD}@${GIT_URL}
           git checkout -b azure
-          npm build -- --prod
+          npm run build -- --prod
           ls -a | grep -v -E 'dist|.git$' | xargs rm -r
           mv dist/* .
           rm -rf dist
